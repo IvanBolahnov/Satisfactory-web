@@ -68,6 +68,14 @@ export const itemsSlice = createSlice({
 				items[item].count += factory.output[item].count
 			}
 		},
+
+		addAll: (state, action) => {
+			const items = state.items
+
+			for (const item in items) {
+				items[item].count += action.payload
+			}
+		},
 	},
 })
 

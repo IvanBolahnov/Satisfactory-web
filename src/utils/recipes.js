@@ -2,8 +2,42 @@ export const ironOreRecipe = {
 	input: {},
 	output: {
 		ironOre: {
-			income: 0,
+			income: 30,
 			count: 5,
+		},
+	},
+}
+
+export const limestoneRecipe = {
+	input: {},
+	output: {
+		limestone: {
+			income: 30,
+			count: 5,
+		},
+	},
+}
+export const copperOreRecipe = {
+	input: {},
+	output: {
+		copperOre: {
+			income: 30,
+			count: 5,
+		},
+	},
+}
+
+export const concreteRecipe = {
+	input: {
+		limestone: {
+			income: 45,
+			count: 3,
+		},
+	},
+	output: {
+		concrete: {
+			income: 15,
+			count: 1,
 		},
 	},
 }
@@ -17,6 +51,21 @@ export const ironIngotRecipe = {
 	},
 	output: {
 		ironIngot: {
+			income: 15,
+			count: 3,
+		},
+	},
+}
+
+export const copperIngotRecipe = {
+	input: {
+		copperOre: {
+			income: 15,
+			count: 3,
+		},
+	},
+	output: {
+		copperIngot: {
 			income: 15,
 			count: 3,
 		},
@@ -49,6 +98,21 @@ export const ironRodRecipe = {
 		ironRod: {
 			income: 15,
 			count: 1,
+		},
+	},
+}
+
+export const wireRecipe = {
+	input: {
+		copperIngot: {
+			income: 15,
+			count: 1,
+		},
+	},
+	output: {
+		wire: {
+			income: 30,
+			count: 2,
 		},
 	},
 }

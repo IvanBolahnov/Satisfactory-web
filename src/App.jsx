@@ -3,25 +3,33 @@
 import Logo from "/logo.ico"
 import "./App.css"
 
-import { miner, ironSmelter } from "./utils/buildings"
+// import { miner, ironSmelter } from "./utils/buildings"
 import {
 	ironOreRecipe,
 	ironIngotRecipe,
 	ironPlateRecipe,
 	ironRodRecipe,
+	limestoneRecipe,
+	concreteRecipe,
+	portableMinerRecipe,
+	copperOreRecipe,
+	copperIngotRecipe,
+	wireRecipe,
 } from "./utils/recipes"
 
+import TagItemList from "./components/tagItemsList/tagItemsList"
 import { itemsSlice } from "./store/reducers/itemsSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
+import { miner } from "./utils/buildings"
 
-const { addFactory, income, craft } = itemsSlice.actions
+const { income, craft, addFactory, addAll } = itemsSlice.actions
 
 function App() {
 	const dispatch = useDispatch()
-
 	const { items } = useSelector((state) => state.items)
 
+	// income
 	useEffect(() => {
 		const interval = setInterval(() => {
 			dispatch(income())
@@ -38,56 +46,158 @@ function App() {
 				</a>
 			</div>
 			<h1>Satisfactory Web</h1>
-			<p>
-				<img
-					src={`/src/assets/${items.ironOre.imgUrl}`}
-					width={50}
-					height={50}
-					className="logo"
-					alt="Logo"
-				/>
-				{`${items.ironOre.count.toFixed(1)} (${items.ironOre.income}/min)`}
-			</p>
-			<p>
-				<img
-					src={`/src/assets/${items.ironIngot.imgUrl}`}
-					width={50}
-					height={50}
-					className="logo"
-					alt="Logo"
-				/>
-				{`${items.ironIngot.count.toFixed(1)} (${items.ironIngot.income}/min)`}
-			</p>
-			<div className="card">
-				<button
-					onClick={() => {
-						dispatch(addFactory({ ...miner("iron", 1, 1) }))
-					}}
-				>
-					{`Build iron miner (cost: 120 iron ingots)`}
-				</button>
-				<button
-					onClick={() => {
-						dispatch(addFactory({ ...ironSmelter }))
-					}}
-				>
-					{`Build iron smelter (cost: 120 iron ingots)`}
-				</button>
+			<div className="itemsList">
+				<TagItemList items={items} tag="Ore"></TagItemList>
+				<TagItemList items={items} tag="Ingots"></TagItemList>
+				<TagItemList items={items} tag="Minerals"></TagItemList>
+				<TagItemList items={items} tag="Standart parts"></TagItemList>
+				<TagItemList items={items} tag="Tools"></TagItemList>
+			</div>
+			<div className="craft">
 				<button
 					onClick={() => {
 						dispatch(craft(ironOreRecipe))
 					}}
 				>
-					{`craft iron ore`}
+					<img
+						src={`/src/assets/images/items/${items.ironOre.imgUrl}`}
+						width={50}
+						height={50}
+						alt="ironOre"
+					/>
+				</button>
+				<button
+					onClick={() => {
+						dispatch(craft(copperOreRecipe))
+					}}
+				>
+					<img
+						src={`/src/assets/images/items/${items.copperOre.imgUrl}`}
+						width={50}
+						height={50}
+						alt="cupperOre"
+					/>
+				</button>
+				<button
+					onClick={() => {
+						dispatch(craft(limestoneRecipe))
+					}}
+				>
+					<img
+						src={`/src/assets/images/items/${items.limestone.imgUrl}`}
+						width={50}
+						height={50}
+						alt="limestone"
+					/>
 				</button>
 				<button
 					onClick={() => {
 						dispatch(craft(ironIngotRecipe))
 					}}
 				>
-					{`craft iron ingot`}
+					<img
+						src={`/src/assets/images/items/${items.ironIngot.imgUrl}`}
+						width={50}
+						height={50}
+						alt="ironIngot"
+					/>
+				</button>
+				<button
+					onClick={() => {
+						dispatch(craft(copperIngotRecipe))
+					}}
+				>
+					<img
+						src={`/src/assets/images/items/${items.copperIngot.imgUrl}`}
+						width={50}
+						height={50}
+						alt="copperIngot"
+					/>
+				</button>
+				<button
+					onClick={() => {
+						dispatch(craft(concreteRecipe))
+					}}
+				>
+					<img
+						src={`/src/assets/images/items/${items.concrete.imgUrl}`}
+						width={50}
+						height={50}
+						alt="concrete"
+					/>
+				</button>
+				<button
+					onClick={() => {
+						dispatch(craft(ironPlateRecipe))
+					}}
+				>
+					<img
+						src={`/src/assets/images/items/${items.ironPlate.imgUrl}`}
+						width={50}
+						height={50}
+						alt="ironPlate"
+					/>
+				</button>
+				<button
+					onClick={() => {
+						dispatch(craft(wireRecipe))
+					}}
+				>
+					<img
+						src={`/src/assets/images/items/${items.wire.imgUrl}`}
+						width={50}
+						height={50}
+						alt="wire"
+					/>
+				</button>
+				<button
+					onClick={() => {
+						dispatch(craft(ironRodRecipe))
+					}}
+				>
+					<img
+						src={`/src/assets/images/items/${items.ironRod.imgUrl}`}
+						width={50}
+						height={50}
+						alt="ironRod"
+					/>
+				</button>
+				<button
+					onClick={() => {
+						dispatch(craft(portableMinerRecipe))
+					}}
+				>
+					<img
+						src={`/src/assets/images/items/${items.portableMiner.imgUrl}`}
+						width={50}
+						height={50}
+						alt="portableMiner"
+					/>
 				</button>
 			</div>
+			<div className="build">
+				<button
+					onClick={() => {
+						dispatch(addFactory({ ...miner(ironOreRecipe, 1, 1) }))
+					}}
+				>
+					iron miner
+				</button>
+				<button
+					onClick={() => {
+						dispatch(addFactory({ ...miner(limestoneRecipe, 1, 1) }))
+					}}
+				>
+					limestone miner
+				</button>
+			</div>
+			<button
+				onClick={() => {
+					dispatch(addAll(300))
+				}}
+			>
+				debug
+			</button>
 		</>
 	)
 }

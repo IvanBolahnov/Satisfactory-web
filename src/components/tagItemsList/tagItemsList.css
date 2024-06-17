@@ -1,0 +1,10 @@
+.tagItemList {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  border: #33a solid 1px;
+  flex-direction: column;
+  color: #fff;
+}

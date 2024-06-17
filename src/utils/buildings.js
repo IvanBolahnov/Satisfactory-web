@@ -8,62 +8,75 @@ export default class buildings {
 	}
 }
 
-export const miner = (ore, minerLvl, oreLvl) => {
-	const outname = ore + "Ore"
-
-	const input = {}
-	const output = {}
+export const miner = (recipe, minerLvl, oreLvl) => {
+	const input = recipe.input
+	const output = recipe.output
 	const cost = {}
 
-	output[outname] = {
-		income: 15 * 2 ** (oreLvl ** minerLvl),
+	for (const ore in output) {
+		output[ore].income = output[ore].income * 2 ** (oreLvl ** minerLvl - 1)
 	}
 
 	switch (minerLvl) {
 		case 1:
-			cost["portableMiner"] = {
+			cost.portableMiner = {
 				count: 1,
 			}
-			cost["ironPlate"] = {
+			cost.ironPlate = {
 				count: 10,
 			}
-			cost["concrete"] = {
+			cost.concrete = {
 				count: 10,
 			}
 			break
 		case 2:
-			cost["portableMiner"] = {
+			cost.portableMiner = {
 				count: 2,
 			}
-			cost["encasedIndustrialBeam"] = {
+			cost.encasedIndustrialBeam = {
 				count: 10,
 			}
-			cost["steelPipe"] = {
+			cost.steelPipe = {
 				count: 20,
 			}
-			cost["modularFrame"] = {
+			cost.modularFrame = {
 				count: 10,
 			}
 			break
 		case 3:
-			cost["portableMiner"] = {
+			cost.portableMiner = {
 				count: 3,
 			}
-			cost["steelPipe"] = {
+			cost.steelPipe = {
 				count: 50,
 			}
-			cost["supercomputer"] = {
+			cost.supercomputer = {
 				count: 5,
 			}
-			cost["fusedModularFrame"] = {
+			cost.fusedModularFrame = {
 				count: 10,
 			}
-			cost["turboMotor"] = {
+			cost.turboMotor = {
 				count: 3,
 			}
 			break
 		default:
 			break
+	}
+
+	return new buildings({ input, output }, cost)
+}
+
+export const smelter = (recipe) => {
+	const input = recipe.input
+	const output = recipe.output
+	const cost = {
+		ironRod: {
+			count: 5,
+		},
+		wire: {
+			count: 8,
+		},
 	}
 
 	return new buildings({ input, output }, cost)
